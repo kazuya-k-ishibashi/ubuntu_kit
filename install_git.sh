@@ -28,8 +28,8 @@ this_dir=$(cd $(dirname $0); pwd)
 
 
 ## configs
-user=kazuya-k-ishibashi
-email=kazuya.ishibashi.wn@gmail.com
+ssh_dir=~/.ssh
+rsa_filename=github_id_rsa
 
 
 ## validate
@@ -37,6 +37,11 @@ email=kazuya.ishibashi.wn@gmail.com
 
 ## exec
 sudo aptitude install git -y
+
+echo -n "user.name > "
+read user
+echo -n "user.email > "
+read email
 
 git config --global user.name ${user}
 git config --global user.email ${email}
@@ -53,25 +58,32 @@ git config --global core.quotepath false
 git config --list
 
 
-if [ ! -e ~/.ssh ]; then
-    mkdir ~/.ssh
+if [ ! -e ${ssh_dir} ]; then
+    mkdir ${ssh_dir}
 fi
-cd ~/.ssh
+cd ${ssh_dir}
 
-ssh-keygen -t rsa -C github_kazuya-k-ishibashi -f github_id_rsa
-chmod 600 github_id_rsa
+echo -n "key-gen comment > "
+read comment
 
-cat << EOS >> ~/.ssh/config
+if [ "${comment}" != "" ]; then
+    comment="-C ${comment}"
+fi
+
+ssh-keygen -t rsa ${comment} -f ${rsa_filename}
+chmod 600 ${ssh_dir}/${rsa_filename}
+
+cat << EOS >> ${ssh_dir}/config
 
 Host github
   HostName github.com
   User git
-  IdentityFile ~/.ssh/github_id_rsa
+  IdentityFile ${ssh_dir}/${rsa_filename}
 EOS
 
 echo ""
 echo ""
-cat ~/.ssh/github_id_rsa.pub
+cat ${ssh_dir}/${rsa_filename}.pub
 echo ""
 echo ""
 echo "paste to github, enter any key."

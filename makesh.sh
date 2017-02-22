@@ -6,8 +6,8 @@ this_file=$(basename $0)
 
 
 ## configs
-user=chronos
-group=chronos
+user=$(whoami)
+group=$(whoami)
 developer="kazuya ishibashi"
 
 sh_name=$1
