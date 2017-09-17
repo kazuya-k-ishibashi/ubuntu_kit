@@ -1,11 +1,11 @@
 #!/bin/sh
 #
-# chown_ubuntu_kit.sh
+# battery_option.sh
 #
 # -----------------------------------------------------------------------------
 # Purpose : foobarbaz
 # -----------------------------------------------------------------------------
-# created : 2017.02.19
+# created : 2017.02.26
 # author  : kazuya ishibashi
 #
 # Description :
@@ -14,10 +14,10 @@
 #   3. piyo
 #
 # Usage :
-#   $ chown_ubuntu_kit.sh param1 param2
+#   $ battery_option.sh param1 param2
 #       param1 - foo
 #       param2 - bar
-#   Example) $ chown_ubuntu_kit.sh baz
+#   Example) $ battery_option.sh baz
 #
 #
 # -----------------------------------------------------------------------------
@@ -25,19 +25,23 @@
 
 ## init
 this_dir=$(cd $(dirname $0); pwd)
-cd ${this_dir}
+this_file=$(basename $0)
 
 
 ## configs
-user=$(whoami)
-group=${user}
 
 
 ## validate
 
 
 ## exec
-chown -R ${user}:${group} ${this_dir}
+cat << PRINT
+電源オプション
+
+スクリーンセイバー
+
+...
+PRINT
 
 
 

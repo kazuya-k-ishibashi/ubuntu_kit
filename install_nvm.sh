@@ -46,6 +46,8 @@ node -v
 echo "#nvm use stable" >> ~/.bashrc
 . ~/.bashrc
 
+npm install -g bower
+
 # nvm ls-remote     <- display all version
 # nvm ls            <- display installed version
 

@@ -1,11 +1,11 @@
 #!/bin/sh
 #
-# make_workspace.sh
+# install_gradle.sh
 #
 # -----------------------------------------------------------------------------
 # Purpose : foobarbaz
 # -----------------------------------------------------------------------------
-# created : 2017.02.21
+# created : 2017.03.15
 # author  : kazuya ishibashi
 #
 # Description :
@@ -14,10 +14,10 @@
 #   3. piyo
 #
 # Usage :
-#   $ make_workspace.sh param1 param2
+#   $ install_gradle.sh param1 param2
 #       param1 - foo
 #       param2 - bar
-#   Example) $ make_workspace.sh baz
+#   Example) $ install_gradle.sh baz
 #
 #
 # -----------------------------------------------------------------------------
@@ -35,7 +35,21 @@ this_file=$(basename $0)
 
 
 ## exec
+: << COMMENTOUT
+sudo add-apt-repository ppa:cwchien/gradle
+sudo aptitude update -y
+sudo aptitude install gradle -y
+COMMENTOUT
 
+curl -s get.sdkman.io | bash
+. "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk version
+
+
+: << Uninstall
+tar zcvf ~/sdkman-backup_$(date +%F-%kh%M).tar.gz -C ~/ .sdkman
+rm -rf ~/.sdkman
+Uninstall
 
 
 exit

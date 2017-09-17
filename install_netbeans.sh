@@ -29,21 +29,37 @@ this_file=$(basename $0)
 
 
 ## configs
+plugins_dir=~/.netbeans/plugins
 
 
 ## validate
 
 
 ## exec
-sudo add-apt-repository ppa:sainthyoga2003/netbeans -y
+#sudo add-apt-repository ppa:sainthyoga2003/netbeans -y
+sudo add-apt-repository ppa:vajdics/netbeans-installer
 sudo aptitude update -y
-sudo aptitude install netbeans -y
+#sudo aptitude install netbeans -y
+sudo aptitude install netbeans-installer -y
 
+: << COMMENTOUT
 echo "copy this."
 echo "netbeans_jdkhome=\"/usr/lib/jvm/java-8-oracle/\""
 
 sudo vim /usr/share/netbeans/etc/netbeans.conf
+COMMENTOUT
 
+if [ ! -e ${plugins_dir} ]; then
+    mkdir ${plugins_dir}
+fi
+
+cat << DOCUMENT
+install plugins
+  * ESLint
+  * [TypeScript Editor](https://github.com/Everlaw/nbts/releases)
+      mv ~/Downloads/xxx.nbm ~/.netbeans/pligins
+      select plugin and install
+DOCUMENT
 
 exit
 
